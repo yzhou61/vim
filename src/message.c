@@ -1449,7 +1449,8 @@ msg_outtrans_attr(char_u *str, int attr)
     int
 msg_outtrans_len(char_u *str, int len)
 {
-    return msg_outtrans_len_attr(str, len, 0);
+    // yzhou - change cmdline color
+    return msg_outtrans_len_attr(str, len, HL_ATTR(HLF_CMD));
 }
 
 /*
@@ -1921,7 +1922,7 @@ screen_puts_mbyte(char_u *s, int l, int attr)
     void
 msg_puts(char *s)
 {
-    msg_puts_attr(s, HL_ATTR(HLF_CMD));
+    msg_puts_attr(s, 0);
 }
 
     void
