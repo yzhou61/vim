@@ -1391,7 +1391,7 @@ msg_putchar_attr(int c, int attr)
     }
     else
 	buf[(*mb_char2bytes)(c, buf)] = NUL;
-    msg_puts_attr((char *)buf, attr);
+    msg_puts_attr((char *)buf, attr | HL_ATTR(HLF_CMD));
 }
 
     void
@@ -1466,7 +1466,7 @@ msg_outtrans_one(char_u *p, int attr)
 	msg_outtrans_len_attr(p, l, attr);
 	return p + l;
     }
-    msg_puts_attr((char *)transchar_byte(*p), attr);
+    msg_puts_attr((char *)transchar_byte(*p), attr | HL_ATTR(HLF_CMD));
     return p + 1;
 }
 
@@ -1548,7 +1548,7 @@ msg_outtrans_len_attr(char_u *msgstr, int len, int attr)
 
     if (str > plain_start)
 	/* print the printable chars at the end */
-	msg_puts_attr_len((char *)plain_start, (int)(str - plain_start), attr);
+	msg_puts_attr_len((char *)plain_start, (int)(str - plain_start), attr | HL_ATTR(HLF_CMD));
 
     return retval;
 }
@@ -1612,7 +1612,7 @@ msg_outtrans_special(
 	len = vim_strsize((char_u *)text);
 	/* Highlight special keys */
 	msg_puts_attr(text, len > 1
-		&& (*mb_ptr2len)((char_u *)text) <= 1 ? attr : 0);
+		&& (*mb_ptr2len)((char_u *)text) <= 1 ? attr : 0 | HL_ATTR(HLF_CMD));
 	retval += len;
     }
     return retval;
@@ -1921,7 +1921,7 @@ screen_puts_mbyte(char_u *s, int l, int attr)
     void
 msg_puts(char *s)
 {
-    msg_puts_attr(s, 0);
+    msg_puts_attr(s, HL_ATTR(HLF_CMD));
 }
 
     void
