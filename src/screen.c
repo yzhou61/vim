@@ -3961,15 +3961,8 @@ win_line(
 		    char_attr = 0;
 # ifdef FEAT_DIFF
 		    if (diff_hlf != (hlf_T)0)
-		    {
 			char_attr = HL_ATTR(diff_hlf);
-#  ifdef FEAT_SYN_HL
-			if (wp->w_p_cul && lnum == wp->w_cursor.lnum)
-			    char_attr = hl_combine_attr(char_attr,
-							    HL_ATTR(HLF_CUL));
-#  endif
-		    }
-# endif
+#endif
 		    p_extra = NULL;
 		    c_extra = ' ';
 		    n_extra = get_breakindent_win(wp,
@@ -4027,8 +4020,7 @@ win_line(
 #ifdef FEAT_SYN_HL
 		    /* combine 'showbreak' with 'cursorline' */
 		    if (wp->w_p_cul && lnum == wp->w_cursor.lnum)
-			char_attr = hl_combine_attr(char_attr,
-							    HL_ATTR(HLF_CUL));
+			char_attr = hl_combine_attr(char_attr, HL_ATTR(HLF_CLN));
 #endif
 		}
 # endif
@@ -4230,8 +4222,6 @@ win_line(
 							      && n_extra == 0)
 		    diff_hlf = HLF_CHD;		/* changed line */
 		line_attr = HL_ATTR(diff_hlf);
-		if (wp->w_p_cul && lnum == wp->w_cursor.lnum)
-		    line_attr = hl_combine_attr(line_attr, HL_ATTR(HLF_CUL));
 	    }
 #endif
 
@@ -5151,12 +5141,7 @@ win_line(
 		    {
 			diff_hlf = HLF_CHD;
 			if (attr == 0 || char_attr != attr)
-			{
 			    char_attr = HL_ATTR(diff_hlf);
-			    if (wp->w_p_cul && lnum == wp->w_cursor.lnum)
-				char_attr = hl_combine_attr(char_attr,
-							    HL_ATTR(HLF_CUL));
-			}
 		    }
 # endif
 # ifdef FEAT_TERMINAL
@@ -10509,9 +10494,9 @@ draw_tabline(void)
 			break;
 		    screen_puts_len(NameBuff, len, 0, col,
 #if defined(FEAT_SYN_HL)
-					 hl_combine_attr(attr, HL_ATTR(HLF_T))
+					   hl_combine_attr(attr, HL_ATTR(HLF_T))
 #else
-					 attr
+					   attr
 #endif
 					       );
 		    col += len;
