@@ -3209,6 +3209,8 @@ ins_compl_dictionaries(
     int		count;
     int		save_p_scs;
     int		dir = compl_direction;
+    int		saved_inf = curbuf->b_p_inf;
+    int		saved_ic = p_ic;
 
     if (*dict == NUL)
     {
@@ -3226,6 +3228,10 @@ ins_compl_dictionaries(
     if (buf == NULL)
 	return;
     regmatch.regprog = NULL;	/* so that we can goto theend */
+
+    /* yzhou - Always infer case when completing dictionary */
+    curbuf->b_p_inf = 1;
+    p_ic = 1;
 
     /* If 'infercase' is set, don't use 'smartcase' here */
     save_p_scs = p_scs;
@@ -3262,7 +3268,8 @@ ins_compl_dictionaries(
     }
 
     /* ignore case depends on 'ignorecase', 'smartcase' and "pat" */
-    regmatch.rm_ic = ignorecase(pat);
+    /* yzhou - Always ignore case when completing dictionary */
+    regmatch.rm_ic = 1;
     while (*dict != NUL && !got_int && !compl_interrupted)
     {
 	/* copy one dictionary file name into buf */
@@ -3316,6 +3323,8 @@ theend:
     p_scs = save_p_scs;
     vim_regfree(regmatch.regprog);
     vim_free(buf);
+    curbuf->b_p_inf = saved_inf;
+    p_ic = saved_ic;
 }
 
     static void
