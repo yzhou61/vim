@@ -3926,6 +3926,14 @@ term_cursor_mode(int forced)
 	    showing_mode = INSERT;
 	}
     }
+    else if ((State & NORMAL) && (get_real_state() & OP_PENDING))
+    {
+	if (showing_mode != OP_PENDING && *T_CSR != NUL)
+	{
+	    out_str(T_CSR);	    /* Insert mode cursor */
+	    showing_mode = OP_PENDING;
+	}
+    }
     else if (forced || showing_mode != NORMAL)
     {
 	out_str(T_CEI);		    /* non-Insert mode cursor */
