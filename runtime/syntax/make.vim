@@ -102,17 +102,17 @@ syn sync match makeCommandSync groupthere makeCommands "^[A-Za-z0-9_./$()%-][A-Z
 
 hi def link makeNextLine		makeSpecial
 hi def link makeCmdNextLine	makeSpecial
-hi def link makeSpecTarget		Statement
+hi def link makeSpecTarget		makeTarget
 if !exists("make_no_commands")
-hi def link makeCommands		Number
+hi def link makeCommands		Normal
 endif
 hi def link makeImplicit		Function
-hi def link makeTarget		Function
+hi def link makeTarget		Special
 hi def link makeInclude		Include
-hi def link makePreCondit		PreCondit
-hi def link makeStatement		Statement
-hi def link makeIdent		Identifier
-hi def link makeSpecial		Special
+hi def link makePreCondit		Statement
+hi def link makeStatement		Function
+hi def link makeIdent		Type
+hi def link makeSpecial		makePreCondit
 hi def link makeComment		Comment
 hi def link makeDString		String
 hi def link makeSString		String
