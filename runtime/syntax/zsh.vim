@@ -412,7 +412,7 @@ hi def link zshOperator         None
 hi def link zshRedir            Operator
 hi def link zshVariable         None
 hi def link zshVariableDef      zshVariable
-hi def link zshDereferencing    PreProc
+hi def link zshDereferencing    Type
 hi def link zshShortDeref       zshDereferencing
 hi def link zshLongDeref        zshDereferencing
 hi def link zshDeref            zshDereferencing
@@ -423,7 +423,7 @@ hi def link zshOption           Constant
 hi def link zshTypes            Type
 hi def link zshSwitches         Special
 hi def link zshNumber           Number
-hi def link zshSubst            PreProc
+hi def link zshSubst            Type
 hi def link zshMathSubst        zshSubst
 hi def link zshOldSubst         zshSubst
 hi def link zshSubstDelim       zshSubst
